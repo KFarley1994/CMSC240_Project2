@@ -13,7 +13,8 @@ class Signal
 		int numOfRows;
 		void	parseVectors();
 		void    normalizeVector();
-		
+		void getMinValues();
+		void getMaxValues();
 
 	public:
 		Signal(string filename); // Constructor that creates a vector

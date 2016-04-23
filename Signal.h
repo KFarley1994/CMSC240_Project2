@@ -12,7 +12,7 @@ class Signal
 		vector<double> maxValue;
 		int numOfRows = 0;
 		void	parseVectors();
-		void    normalizeVector();
+		vector<double>    normalizeVector();
 		double getMinValue(vector<double> v);
 		double getMaxValue(vector<double> v);
 

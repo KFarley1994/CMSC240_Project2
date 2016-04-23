@@ -1,2 +1,6 @@
 #include "Signal.h"
-using namespace std;
+
+Signal::Signal(string filename)
+{
+  
+}

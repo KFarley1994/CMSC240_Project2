@@ -119,6 +119,11 @@ vector<double> 	Signal::getSignal()
 	return vectors;
 }
 
+vector<double> Signal::normalizeVector()
+{
+	
+}
+
 double Signal::getMaxValue(vector<double> v)
 {
 	double max = 0;

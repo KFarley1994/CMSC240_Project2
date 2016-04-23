@@ -128,7 +128,7 @@ vector<double> Signal::normalizeVector(double min, double max, vector<double> v)
 
 	for (int i = 0; i < numOfRows; i++)
 	{
-		normVector = (v - min)/range;
+		normVector[i] = (v[i] - min)/range;
 	}
 
 	return normVector;

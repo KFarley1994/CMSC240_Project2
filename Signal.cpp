@@ -154,5 +154,15 @@ double Signal::getMaxValue(vector<double> v)
 
 double Signal::getMinValue(vector<double> v)
 {
+	double min = 0;
 
+	for(int i = 0; i < numOfRows; i ++)
+	{
+		if(v[i] < min)
+		{
+			min = v[i];
+		}
+	}
+
+	return min;
 }

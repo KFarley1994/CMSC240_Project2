@@ -1,5 +1,6 @@
 #include "Signal.h"
 #include <sstream>
+#include <fstream>
 
 Signal::Signal(string filename)
 {
@@ -45,14 +46,14 @@ Signal::Signal(string filename)
  	string line;
 	ifstream inFile (filename);
 
-	if (myfile.is_open())
+	if (inFile.is_open())
 	{
  		while ( getline (inFile,line) )
     	{
 
     		string value;
       		stringstream lineStream(line);
-      		ss >>  acc_xVal >> acc_yVal >> acc_zVal 
+      		lineStream >>  acc_xVal >> acc_yVal >> acc_zVal 
       		>> gyr_xVal >> gyr_yVal >> gyr_zVal 
       		>> rollVal >> pitchVal >> yawVal 
       		>> emg_1Val >> emg_2Val >> emg_3Val >> emg_4Val >> emg_5Val >> emg_6Val >> emg_7Val >> emg_8Val;
@@ -61,7 +62,7 @@ Signal::Signal(string filename)
 			acc_y[numOfRows] = acc_yVal;
 			acc_z[numOfRows] = acc_zVal;
 
-			gyr_x[numOfRows] = gyr_xVal
+			gyr_x[numOfRows] = gyr_xVal;
 			gyr_y[numOfRows] = gyr_yVal;
 			gyr_z[numOfRows] = gyr_zVal;
 
@@ -104,19 +105,14 @@ Signal::Signal(string filename)
 
 	for(int i = 0; i < 17; i ++)
 	{
-		minValue[i] = getMinValues(vectors[i]);
-		maxValue[i] = getMaxValues(vectors[i]);
+		minValue[i] = getMinValue(vectors[i]);
+		maxValue[i] = getMaxValue(vectors[i]);
 	}
 
 }
 
 Signal::~Signal(){
 
-}
-
-vector<double> 	Signal::getSignal()
-{
-	return vectors;
 }
 
 double Signal::getMaxValue(vector<double> v)

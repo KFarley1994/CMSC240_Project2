@@ -10,11 +10,11 @@ class Signal
 		vector < vector<double> > vectors; //acc_x acc_y acc_z gyr_x gyr_y gyr_z roll pitch yaw emg_1 emg_2 emg_3 emg_4 emg_5 emg_6 emg_7 emg_8
 		vector<double> minValue;
 		vector<double> maxValue;
-		int numOfRows;
+		int numOfRows = 0;
 		void	parseVectors();
 		void    normalizeVector();
-		void getMinValues();
-		void getMaxValues();
+		double getMinValue(vector<double> v);
+		double getMaxValue(vector<double> v);
 
 	public:
 		Signal(string filename); // Constructor that creates a vector

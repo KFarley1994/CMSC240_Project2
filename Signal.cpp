@@ -22,6 +22,7 @@ Signal::Signal(string filename)
 	vector<double> emg_8;
 
 
+
 	double acc_xVal;
 	double acc_yVal;
 	double acc_zVal;
@@ -40,7 +41,6 @@ Signal::Signal(string filename)
 	double emg_7Val;
 	double emg_8Val;
 
-	int count = 0;
 
  	string line;
 	ifstream inFile (filename);
@@ -57,36 +57,55 @@ Signal::Signal(string filename)
       		>> rollVal >> pitchVal >> yawVal 
       		>> emg_1Val >> emg_2Val >> emg_3Val >> emg_4Val >> emg_5Val >> emg_6Val >> emg_7Val >> emg_8Val;
 
-			acc_x[count] = acc_xVal;
-			acc_y[count] = acc_yVal;
-			acc_z[count] = acc_zVal;
+			acc_x[numOfRows] = acc_xVal;
+			acc_y[numOfRows] = acc_yVal;
+			acc_z[numOfRows] = acc_zVal;
 
-			gyr_x[count] = gyr_xVal
-			gyr_y[count] = gyr_yVal;
-			gyr_z[count] = gyr_zVal;
+			gyr_x[numOfRows] = gyr_xVal
+			gyr_y[numOfRows] = gyr_yVal;
+			gyr_z[numOfRows] = gyr_zVal;
 
-			roll[count] = rollVal;
-			pitch[count] = pitchVal;
-			yaw[count] = yawVal;
+			roll[numOfRows] = rollVal;
+			pitch[numOfRows] = pitchVal;
+			yaw[numOfRows] = yawVal;
 
-			emg_1[count] = emg_1Val;
-			emg_2[count] = emg_2Val;
-			emg_3[count] = emg_3Val;
-			emg_4[count] = emg_4Val;
-			emg_5[count] = emg_5Val;
-			emg_6[count] = emg_6Val;
-			emg_7[count] = emg_7Val;
-			emg_8[count] = emg_8Val;
+			emg_1[numOfRows] = emg_1Val;
+			emg_2[numOfRows] = emg_2Val;
+			emg_3[numOfRows] = emg_3Val;
+			emg_4[numOfRows] = emg_4Val;
+			emg_5[numOfRows] = emg_5Val;
+			emg_6[numOfRows] = emg_6Val;
+			emg_7[numOfRows] = emg_7Val;
+			emg_8[numOfRows] = emg_8Val;
 
-			count++;
+			numOfRows++;
     	}
     
     	inFile.close();
 	}
 
-	for(int i = 0; i < count; i ++)
-	{
+	vectors[0] = acc_x;
+	vectors[1] = acc_y;
+	vectors[2] = acc_z;
+	vectors[3] = gyr_x;
+	vectors[4] = gyr_y;
+	vectors[5] = gyr_z;
+	vectors[6] = roll;
+	vectors[7] = pitch;
+	vectors[8] = yaw;
+	vectors[9] = emg_1;
+	vectors[10] = emg_2;
+	vectors[11] = emg_3;
+	vectors[12] = emg_4;
+	vectors[13] = emg_5;
+	vectors[14] = emg_6;
+	vectors[15] = emg_7;
+	vectors[16] = emg_8;	
 
+	for(int i = 0; i < 17; i ++)
+	{
+		minValue[i] = getMinValues(vectors[i]);
+		maxValue[i] = getMaxValues(vectors[i]);
 	}
 
 }
@@ -100,12 +119,22 @@ vector<double> 	Signal::getSignal()
 	return vectors;
 }
 
-void Signal::getMaxValues()
+double Signal::getMaxValue(vector<double> v)
 {
+	double max = 0;
 
+	for(int i = 0; i < numOfRows; i ++)
+	{
+		if(v[i] > max)
+		{
+			max = v[i];
+		}
+	}
+
+	return max;
 }
 
-void Signal::getMinValues()
+double Signal::getMinValue(vector<double> v)
 {
-	
+
 }

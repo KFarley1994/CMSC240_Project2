@@ -1,6 +1,7 @@
 #include "Signal.h"
 #include <sstream>
 #include <fstream>
+#include <iostream>
 
 Signal::Signal(string filename)
 {
@@ -50,7 +51,6 @@ Signal::Signal(string filename)
 	{
  		while ( getline (inFile,line) )
     	{
-
     		string value;
       		stringstream lineStream(line);
       		lineStream >>  acc_xVal >> acc_yVal >> acc_zVal 
@@ -58,26 +58,48 @@ Signal::Signal(string filename)
       		>> rollVal >> pitchVal >> yawVal 
       		>> emg_1Val >> emg_2Val >> emg_3Val >> emg_4Val >> emg_5Val >> emg_6Val >> emg_7Val >> emg_8Val;
 
-			acc_x[numOfRows] = acc_xVal;
-			acc_y[numOfRows] = acc_yVal;
-			acc_z[numOfRows] = acc_zVal;
+			acc_x.push_back(acc_xVal);
+			acc_y.push_back(acc_yVal);
+			acc_z.push_back(acc_zVal);
 
-			gyr_x[numOfRows] = gyr_xVal;
-			gyr_y[numOfRows] = gyr_yVal;
-			gyr_z[numOfRows] = gyr_zVal;
+			gyr_x.push_back(gyr_xVal);
+			gyr_y.push_back(gyr_yVal);
+			gyr_z.push_back(gyr_zVal);
 
-			roll[numOfRows] = rollVal;
-			pitch[numOfRows] = pitchVal;
-			yaw[numOfRows] = yawVal;
+			roll.push_back(rollVal);
+			pitch.push_back(pitchVal);
+			yaw.push_back(yawVal);
 
-			emg_1[numOfRows] = emg_1Val;
-			emg_2[numOfRows] = emg_2Val;
-			emg_3[numOfRows] = emg_3Val;
-			emg_4[numOfRows] = emg_4Val;
-			emg_5[numOfRows] = emg_5Val;
-			emg_6[numOfRows] = emg_6Val;
-			emg_7[numOfRows] = emg_7Val;
-			emg_8[numOfRows] = emg_8Val;
+			emg_1.push_back(emg_1Val);
+			emg_2.push_back(emg_2Val);
+			emg_3.push_back(emg_3Val);
+			emg_4.push_back(emg_4Val);
+			emg_5.push_back(emg_5Val);
+			emg_6.push_back(emg_6Val);
+			emg_7.push_back(emg_7Val);
+			emg_8.push_back(emg_8Val);
+
+
+			/**cout << acc_xVal << endl;
+			cout << acc_yVal << endl;
+			cout << acc_zVal << endl;
+
+			cout << gyr_xVal << endl;
+			cout << gyr_yVal << endl;
+			cout << gyr_zVal << endl;
+
+			cout << rollVal << endl;
+			cout << pitchVal << endl;
+			cout << yawVal << endl;
+
+			cout << emg_1Val << endl;
+			cout << emg_2Val << endl;
+			cout << emg_3Val << endl;
+			cout << emg_4Val << endl;
+			cout << emg_5Val << endl;
+			cout << emg_6Val << endl;
+			cout << emg_7Val << endl;
+			cout << emg_8Val << endl;*/
 
 			numOfRows++;
     	}
@@ -85,7 +107,25 @@ Signal::Signal(string filename)
     	inFile.close();
 	}
 
-	vectors[0] = acc_x;
+	vectors.push_back(acc_x);
+	vectors.push_back(acc_y);
+	vectors.push_back(acc_z);
+	vectors.push_back(gyr_x);
+	vectors.push_back(gyr_y);
+	vectors.push_back(gyr_z);
+	vectors.push_back(roll);
+	vectors.push_back(pitch);
+	vectors.push_back(yaw);
+	vectors.push_back(emg_1);
+	vectors.push_back(emg_2);
+	vectors.push_back(emg_3);
+	vectors.push_back(emg_4);
+	vectors.push_back(emg_5);
+	vectors.push_back(emg_6);
+	vectors.push_back(emg_7);
+	vectors.push_back(emg_8);	
+
+	/**vectors[0] = acc_x;
 	vectors[1] = acc_y;
 	vectors[2] = acc_z;
 	vectors[3] = gyr_x;
@@ -101,12 +141,13 @@ Signal::Signal(string filename)
 	vectors[13] = emg_5;
 	vectors[14] = emg_6;
 	vectors[15] = emg_7;
-	vectors[16] = emg_8;	
+	vectors[16] = emg_8;*/
 
 	for(int i = 0; i < 17; i ++)
 	{
-		minValue[i] = getMinValue(vectors[i]);
-		maxValue[i] = getMaxValue(vectors[i]);
+		double minValue = getMinValue(vectors[i]);
+		double maxValue = getMaxValue(vectors[i]);
+		vectors[i] = normalizeVector(minValue, maxValue, vectors.at(i));
 	}
 
 }
@@ -118,7 +159,16 @@ Signal::~Signal(){
 
 vector<double> 	Signal::getSignal()
 {
-	return vectors;
+	vector<double> concatVector;
+	for(int i = 0; i < 17; i ++)
+	{
+		for(int j = 0; j < numOfRows; j ++)
+		{
+			concatVector.push_back(vectors.at(i).at(j));
+		}
+	}
+
+	return concatVector;
 }
 
 vector<double> Signal::normalizeVector(double min, double max, vector<double> v)
@@ -128,7 +178,7 @@ vector<double> Signal::normalizeVector(double min, double max, vector<double> v)
 
 	for (int i = 0; i < numOfRows; i++)
 	{
-		normVector[i] = (v[i] - min)/range;
+		normVector.push_back((v[i] - min)/range);
 	}
 
 	return normVector;

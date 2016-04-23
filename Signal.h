@@ -11,7 +11,7 @@ class Signal
 		vector<double> minValue;
 		vector<double> maxValue;
 		int numOfRows = 0;
-		void	parseVectors();
+		//void	parseVectors();
 		vector<double>    normalizeVector(double min, double max, vector<double> v);
 		double getMinValue(vector<double> v);
 		double getMaxValue(vector<double> v);
@@ -20,6 +20,7 @@ class Signal
 		Signal(string filename); // Constructor that creates a vector
 		~Signal();
 		vector<double> 	getSignal(); // Will concatenate rows
+		vector < vector<double> > getVectors(){return vectors;};
 
 };
 

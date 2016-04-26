@@ -1,8 +1,17 @@
+/*
+* Signal Class that opens a data file containing 17 values per point-in-time sample
+* in each row. The data values are normalized per row and concatenated to produce
+* the output signal needed for DTW. 
+*/
+
 #include "Signal.h"
 #include <sstream>
 #include <fstream>
 #include <iostream>
 
+/*
+* Default constructor that opens a data file containing all the of the signals to be processed.
+*/
 Signal::Signal(string filename)
 {
 	vector<double> acc_x;
@@ -47,6 +56,8 @@ Signal::Signal(string filename)
  	string line;
 	ifstream inFile (filename);
 
+	// Open the file containing the data and parse the 17 different values into their 
+	// own vector to be stored.
 	if (inFile.is_open())
 	{
  		while ( getline (inFile,line) )
@@ -143,6 +154,7 @@ Signal::Signal(string filename)
 	vectors[15] = emg_7;
 	vectors[16] = emg_8;*/
 
+	// Normalizes the vectors
 	for(int i = 0; i < 17; i ++)
 	{
 		double minValue = getMinValue(vectors[i]);
@@ -152,11 +164,16 @@ Signal::Signal(string filename)
 
 }
 
+/*
+* Destructor that deletes the signal
+*/
 Signal::~Signal(){
 
 }
 
-
+/*
+* Method that retrieves the entire signal by concatenating the vectors
+*/
 vector<double> 	Signal::getSignal()
 {
 	vector<double> concatVector;
@@ -171,6 +188,10 @@ vector<double> 	Signal::getSignal()
 	return concatVector;
 }
 
+/*
+* Method that normalizes the data values in the row and returns the normalized vector
+* To normalize: (x - min)/range
+*/
 vector<double> Signal::normalizeVector(double min, double max, vector<double> v)
 {
 	vector<double> normVector;
@@ -186,7 +207,9 @@ vector<double> Signal::normalizeVector(double min, double max, vector<double> v)
 }
 
 
-
+/*
+* Method that returns the maximum value in the row to be used for normalization
+*/
 double Signal::getMaxValue(vector<double> v)
 {
 	double max = 0;
@@ -202,6 +225,9 @@ double Signal::getMaxValue(vector<double> v)
 	return max;
 }
 
+/*
+* Method that returns the minumum value in the row to be used for normalization
+*/
 double Signal::getMinValue(vector<double> v)
 {
 	double min = 0;

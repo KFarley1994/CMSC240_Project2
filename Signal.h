@@ -1,3 +1,9 @@
+/*
+* Header file for the Signal class that includes variable declarations for the 
+* storage of the data values from the file, in addition to any methods used in 
+* the Signal.cpp file. 
+*/
+
 #ifndef SIGNAL_H
 #define SIGNAL_H
 

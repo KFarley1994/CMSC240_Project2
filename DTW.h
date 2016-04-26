@@ -3,15 +3,18 @@
 
 #include <vector>
 #include "Signal.h"
-using namespace std;
 
 
+/*
+*
+*/
 class DTW
 {
 	public:
-		static vector<double> DTWDistance(Signal a, Signal B);
+		double DTWDistance(vector<double> signalA, vector<double> signalB, int windowSize);
 
 
 
 };
 
+#endif

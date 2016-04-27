@@ -21,12 +21,12 @@ double distance(double x, double y)
 /*
 *
 */
-double DTW::DTWDistance(const vector<double> signalA, const vector<double> signalB)// int windowSize) 
+vector<vector<double>> DTW::DTWDistance(const vector<double> signalA, const vector<double> signalB)// int windowSize) 
 {
     const int m = signalA.size();
     const int n = signalB.size();
     // Create the matrix
-    double DTW[m][n];
+    vector<vector<double>> DTW(m, vector<double>(n));
     cout << " test" << endl;
     DTW[0][0] = distance(signalA[0], signalB[0]);
     
@@ -53,5 +53,6 @@ double DTW::DTWDistance(const vector<double> signalA, const vector<double> signa
         }
     }
 
-    return DTW[m-1][ n-1];
+    cout << m-1 << " " << n-1 << " "<< DTW[m-1][n-1] << endl;
+    return DTW;
 }

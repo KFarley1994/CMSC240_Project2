@@ -24,6 +24,18 @@ int main(int argc, char *argv[])
 	// vector<double> signalB;
 	// int windowSize = ___?;
 	// Need to pass in two signals into signalA and signalB with the windowSize to run
-	double DTWDistance =  DTW::DTWDistance(testVector, testVector2);
-	cout << "DTW Distance = " <<  DTWDistance << endl;
+
+	vector<vector<double>> DTW  = DTW::DTWDistance(testVector, testVector2);
+	cout << testVector.size() << endl;
+	cout << testVector2.size() << endl;
+	cout << DTW[ testVector.size() -1 ][ testVector2.size()-1 ] << endl;
+	
+	for(int i = 0; i < testVector.size(); i ++)
+	{
+			for (int j =0; j < testVector2.size(); j++)
+			{
+				cout << "DTW[" << i << "]" << "[" << j << "]" << DTW[i][j] << endl;
+			}
+	}
+
 }

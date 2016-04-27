@@ -8,14 +8,17 @@ EXECS = Test
 
 all: $(EXECS)
 
-Test: Test.o Signal.o
-	$(LD) $(LDFLAG) -o Test Test.o Signal.o
+Test: Test.o Signal.o DTW.o
+	$(LD) $(LDFLAG) -o Test Test.o Signal.o DTW.o
 
 Test.o: Test.h Test.cpp
 	$(CC) $(CCFLAG) Test.cpp
 
 Signal.o: Signal.h Signal.cpp
 	$(CC) $(CCFLAG) Signal.cpp
+
+DTW.o: DTW.h DTW.cpp
+	$(CC) $(CCFLAG) DTW.cpp
 
 clean:
 	/bin/rm -f *.o $(EXECS)

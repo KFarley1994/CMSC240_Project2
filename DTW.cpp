@@ -6,6 +6,7 @@
 #include <vector>
 #include <utility>
 #include <cmath>
+#include <iostream>
 
 using namespace std;
 
@@ -20,27 +21,27 @@ double distance(double x, double y)
 /*
 *
 */
-vector<double> DTW::DTWDistance(vector<double> signalA, vector<double> signalB, int windowSize) 
+double DTW::DTWDistance(const vector<double> signalA, const vector<double> signalB)// int windowSize) 
 {
-    int m = signalA.size();
-    int n = signalB.size();
-
+    const int m = signalA.size();
+    const int n = signalB.size();
     // Create the matrix
     double DTW[m][n];
+    cout << " test" << endl;
     DTW[0][0] = distance(signalA[0], signalB[0]);
     
     // Not sure whether or not to include this..
-    windowSize = max(windowSize, abs(m-n)) // adapt window size (*)
+    //windowSize = max(windowSize, abs(m-n)) // adapt window size (*)
  
     // Calculate the first row
     for (int i = 1; i < m; i++)
     {
-        DTW[i][0] = cost[i-1][0] + distance(signalA[i], signalB[0]);
+        DTW[i][0] = DTW[i-1][0] + distance(signalA[i], signalB[0]);
     }   
     // Calculate the first column
     for (int j = 1; j < n; j++)
     {
-        cost[0][j] = cost[0][j-1] + distance(signalA[0], signalB[j]);
+        DTW[0][j] = DTW[0][j-1] + distance(signalA[0], signalB[j]);
     }
 
     // Populate the matrix
@@ -52,5 +53,5 @@ vector<double> DTW::DTWDistance(vector<double> signalA, vector<double> signalB, 
         }
     }
 
-    return DTW[m-1, n-1]
+    return DTW[m-1][ n-1];
 }

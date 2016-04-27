@@ -16,7 +16,7 @@ class Signal
 		vector < vector<double> > vectors; //acc_x acc_y acc_z gyr_x gyr_y gyr_z roll pitch yaw emg_1 emg_2 emg_3 emg_4 emg_5 emg_6 emg_7 emg_8
 		vector<double> minValue;
 		vector<double> maxValue;
-		int numOfRows = 0;
+		int numOfRows;
 		//void	parseVectors();
 		vector<double>    normalizeVector(double min, double max, vector<double> v);
 		double getMinValue(vector<double> v);

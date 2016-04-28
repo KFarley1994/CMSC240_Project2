@@ -11,7 +11,7 @@
 class DTW
 {
 	public:
-		static vector<vector<double>> DTWDistance(const vector<double> signalA, const vector<double> signalB);// int windowSize);
+		static vector< vector<double> > DTWDistance(const vector<double> signalA, const vector<double> signalB);// int windowSize);
 
 };
 

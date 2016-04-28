@@ -13,7 +13,7 @@ using namespace std;
 /*
 *
 */
-double distance(double x, double y)
+double distanceFunction(double x, double y)
 {
     return sqrt(pow((x-y), 2));
 }
@@ -21,14 +21,14 @@ double distance(double x, double y)
 /*
 *
 */
-vector<vector<double>> DTW::DTWDistance(const vector<double> signalA, const vector<double> signalB)// int windowSize) 
+vector< vector<double> > DTW::DTWDistance(const vector<double> signalA, const vector<double> signalB)// int windowSize) 
 {
     const int m = signalA.size();
     const int n = signalB.size();
     // Create the matrix
-    vector<vector<double>> DTW(m, vector<double>(n));
+    vector< vector<double> > DTW(m, vector<double>(n));
     cout << " test" << endl;
-    DTW[0][0] = distance(signalA[0], signalB[0]);
+    DTW[0][0] = distanceFunction(signalA[0], signalB[0]);
     
     // Not sure whether or not to include this..
     //windowSize = max(windowSize, abs(m-n)) // adapt window size (*)
@@ -36,12 +36,12 @@ vector<vector<double>> DTW::DTWDistance(const vector<double> signalA, const vect
     // Calculate the first row
     for (int i = 1; i < m; i++)
     {
-        DTW[i][0] = DTW[i-1][0] + distance(signalA[i], signalB[0]);
+        DTW[i][0] = DTW[i-1][0] + distanceFunction(signalA[i], signalB[0]);
     }   
     // Calculate the first column
     for (int j = 1; j < n; j++)
     {
-        DTW[0][j] = DTW[0][j-1] + distance(signalA[0], signalB[j]);
+        DTW[0][j] = DTW[0][j-1] + distanceFunction(signalA[0], signalB[j]);
     }
 
     // Populate the matrix
@@ -49,7 +49,7 @@ vector<vector<double>> DTW::DTWDistance(const vector<double> signalA, const vect
     {
         for (int j = 1; j < n; j++)
         {
-            DTW[i][j] = min(DTW[i-1][j], min(DTW[i][j-1], DTW[i-1][j-1])) + distance(signalA[i], signalB[j]);
+            DTW[i][j] = min(DTW[i-1][j], min(DTW[i][j-1], DTW[i-1][j-1])) + distanceFunction(signalA[i], signalB[j]);
         }
     }
 

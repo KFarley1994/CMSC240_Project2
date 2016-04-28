@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QtGui>
 #include <QtCore>
+#include "qcustomplot.h"
 
 namespace Ui {
     class DTW_GUI;

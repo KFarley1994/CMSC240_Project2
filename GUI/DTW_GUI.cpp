@@ -1,5 +1,7 @@
 #include "DTW_GUI.h"
 #include "ui_DTW_GUI.h"
+#include <QVector>
+#include <QPointF>
 
 DTW_GUI::DTW_GUI(QWidget *parent) :
 QMainWindow(parent),
@@ -27,12 +29,13 @@ void DTW_GUI::paintEvent(QPaintEvent *e)
     QPen linePen(Qt::red);
     linePen.setWidth(2);
     
-    QPoint p1,p2;
-    p1.setX(10); p1.setY(10);
-    p2.setX(100); p2.setY(100);
+    QPoint p1;
+    p1.setX(p.x() + 1.0);
+    p += QPointF(1.0,0.0);
+    p.rx()++;
     
     painter.setPen(linePen);
-    painter.drawLine(p1,p2);
+    painter.drawLine(p1);
     
     painter.setPen(pointPen);
     painter.drawRect(QRect(10,10,40,40));

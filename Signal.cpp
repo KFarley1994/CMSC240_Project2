@@ -93,7 +93,10 @@ Signal::Signal(string filename)
 			emg_7.push_back(emg_7Val);
 			emg_8.push_back(emg_8Val);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f38a2d0355bb3d16a98d30b85075615dc8c36d39
 			numOfRows++;
     	}
     
@@ -118,7 +121,10 @@ Signal::Signal(string filename)
 	vectors.push_back(emg_7);
 	vectors.push_back(emg_8);	
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f38a2d0355bb3d16a98d30b85075615dc8c36d39
 	// Normalizes the vectors
 	for(int i = 0; i < 17; i ++)
 	{

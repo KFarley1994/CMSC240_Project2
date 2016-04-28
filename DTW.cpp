@@ -1,5 +1,8 @@
 /*
-* DTW class
+* This is the Dynamic Time Warping (DTW) class that measures the similarity 
+* between two signal vectors based on the time series of each. To find the 
+* minimum warp path between two sequences, a greedy strategy was used from 
+* DTW[m][n] to DTW[0][0] by picking the minimum value. 
 */
 
 #include "DTW.h"
@@ -11,7 +14,8 @@
 using namespace std;
 
 /*
-*
+* Method used in DTWDistance() to help calculate the minimum distance
+* between two points in the signals. 
 */
 double distanceFunction(double x, double y)
 {
@@ -19,20 +23,20 @@ double distanceFunction(double x, double y)
 }
 
 /*
-*
+* Calculates the DTW Distance between the two signals using dynamic programming
+* and greedy strategy. 
 */
 vector< vector<double> > DTW::DTWDistance(const vector<double> signalA, const vector<double> signalB)// int windowSize) 
 {
     const int m = signalA.size();
     const int n = signalB.size();
+    
     // Create the matrix
     vector< vector<double> > DTW(m, vector<double>(n));
-    cout << " test" << endl;
+    // cout << " test" << endl;
     DTW[0][0] = distanceFunction(signalA[0], signalB[0]);
     
-    // Not sure whether or not to include this..
-    //windowSize = max(windowSize, abs(m-n)) // adapt window size (*)
- 
+
     // Calculate the first row
     for (int i = 1; i < m; i++)
     {
@@ -54,5 +58,6 @@ vector< vector<double> > DTW::DTWDistance(const vector<double> signalA, const ve
     }
 
     cout << m-1 << " " << n-1 << " "<< DTW[m-1][n-1] << endl;
+    
     return DTW;
 }

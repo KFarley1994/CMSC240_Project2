@@ -18,7 +18,7 @@ class Signal
 		vector<double> minValue;
 		vector<double> maxValue;
 		int numOfRows;
-		//void	parseVectors();
+	
 		vector<double>    normalizeVector(double min, double max, vector<double> v);
 		double getMinValue(vector<double> v);
 		double getMaxValue(vector<double> v);

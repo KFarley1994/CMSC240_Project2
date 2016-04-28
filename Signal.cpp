@@ -9,6 +9,7 @@
 #include <fstream>
 #include <iostream>
 #include <climits>
+
 /*
 * Default constructor that opens a data file containing all the of the signals to be processed.
 */

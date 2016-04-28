@@ -4,7 +4,9 @@
 
 int main(int argc, char *argv[])
 {
-	Signal testSignal(argv[1]);
+	string filename(argv[1]);
+	string filename2(argv[2]);
+	Signal testSignal(filename);
 	vector<double> testVector = testSignal.getSignal();
 	for (int i =0; i <testVector.size(); i++)
 	{
@@ -13,7 +15,7 @@ int main(int argc, char *argv[])
 
 	cout << endl;
 
-	Signal testSignal2(argv[2]);
+	Signal testSignal2(filename2);
 	vector<double> testVector2 = testSignal2.getSignal();
 	for (int i =0; i <testVector2.size(); i++)
 	{

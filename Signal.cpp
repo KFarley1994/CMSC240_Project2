@@ -8,12 +8,13 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
-
+#include <climits>
 /*
 * Default constructor that opens a data file containing all the of the signals to be processed.
 */
 Signal::Signal(string filename)
 {
+	numOfRows = 0;
 	vector<double> acc_x;
 	vector<double> acc_y;
 	vector<double> acc_z;
@@ -31,8 +32,6 @@ Signal::Signal(string filename)
 	vector<double> emg_6;
 	vector<double> emg_7;
 	vector<double> emg_8;
-
-
 
 	double acc_xVal;
 	double acc_yVal;
@@ -54,7 +53,8 @@ Signal::Signal(string filename)
 
 
  	string line;
-	ifstream inFile (filename);
+	fstream inFile;
+	inFile.open(filename.c_str());
 
 	// Open the file containing the data and parse the 17 different values into their 
 	// own vector to be stored.
@@ -69,7 +69,10 @@ Signal::Signal(string filename)
       		>> rollVal >> pitchVal >> yawVal 
       		>> emg_1Val >> emg_2Val >> emg_3Val >> emg_4Val >> emg_5Val >> emg_6Val >> emg_7Val >> emg_8Val;
 
+      		//cout <<  acc_xVal << endl;
+
 			acc_x.push_back(acc_xVal);
+			//cout << acc_xVal << endl;
 			acc_y.push_back(acc_yVal);
 			acc_z.push_back(acc_zVal);
 
@@ -90,27 +93,6 @@ Signal::Signal(string filename)
 			emg_7.push_back(emg_7Val);
 			emg_8.push_back(emg_8Val);
 
-
-			/**cout << acc_xVal << endl;
-			cout << acc_yVal << endl;
-			cout << acc_zVal << endl;
-
-			cout << gyr_xVal << endl;
-			cout << gyr_yVal << endl;
-			cout << gyr_zVal << endl;
-
-			cout << rollVal << endl;
-			cout << pitchVal << endl;
-			cout << yawVal << endl;
-
-			cout << emg_1Val << endl;
-			cout << emg_2Val << endl;
-			cout << emg_3Val << endl;
-			cout << emg_4Val << endl;
-			cout << emg_5Val << endl;
-			cout << emg_6Val << endl;
-			cout << emg_7Val << endl;
-			cout << emg_8Val << endl;*/
 
 			numOfRows++;
     	}
@@ -136,28 +118,12 @@ Signal::Signal(string filename)
 	vectors.push_back(emg_7);
 	vectors.push_back(emg_8);	
 
-	/**vectors[0] = acc_x;
-	vectors[1] = acc_y;
-	vectors[2] = acc_z;
-	vectors[3] = gyr_x;
-	vectors[4] = gyr_y;
-	vectors[5] = gyr_z;
-	vectors[6] = roll;
-	vectors[7] = pitch;
-	vectors[8] = yaw;
-	vectors[9] = emg_1;
-	vectors[10] = emg_2;
-	vectors[11] = emg_3;
-	vectors[12] = emg_4;
-	vectors[13] = emg_5;
-	vectors[14] = emg_6;
-	vectors[15] = emg_7;
-	vectors[16] = emg_8;*/
 
 	// Normalizes the vectors
 	for(int i = 0; i < 17; i ++)
 	{
 		double minValue = getMinValue(vectors[i]);
+		cout << "hi" << endl;
 		double maxValue = getMaxValue(vectors[i]);
 		vectors[i] = normalizeVector(minValue, maxValue, vectors.at(i));
 	}
@@ -212,7 +178,7 @@ vector<double> Signal::normalizeVector(double min, double max, vector<double> v)
 */
 double Signal::getMaxValue(vector<double> v)
 {
-	double max = 0;
+	double max = INT_MIN;
 
 	for(int i = 0; i < numOfRows; i ++)
 	{
@@ -230,12 +196,12 @@ double Signal::getMaxValue(vector<double> v)
 */
 double Signal::getMinValue(vector<double> v)
 {
-	double min = 0;
+	double min = INT_MAX;
 
-	for(int i = 0; i < numOfRows; i ++)
+	for(int i = 100; i < numOfRows; i ++)
 	{
 		if(v[i] < min)
-		{
+		{ 
 			min = v[i];
 		}
 	}

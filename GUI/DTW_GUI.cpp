@@ -29,14 +29,15 @@ void DTW_GUI::paintEvent(QPaintEvent *e)
     QPen linePen(Qt::red);
     linePen.setWidth(2);
     
-    QPoint p1;
-    p1.setX(p.x() + 1.0);
-    p += QPointF(1.0,0.0);
-    p.rx()++;
+    //QPoint p1,p2,p3;
+
+    //QVector vector = p1;
     
-    painter.setPen(linePen);
-    painter.drawLine(p1);
+    //painter.setPen(linePen);
+    //painter.drawLines(p1);
     
     painter.setPen(pointPen);
-    painter.drawRect(QRect(10,10,40,40));
+    painter.drawRect(QRect(100, 100, 200, 1000));//(40,40,200,1000)); 100, 100, 200, 1000
+    painter.drawRect(QRect(310,100, 1000, 1000));//250,40,1000,1000));
+    painter.drawRect(QRect(310, 1110, 1000, 200));//250,1050,1000,200));
 }

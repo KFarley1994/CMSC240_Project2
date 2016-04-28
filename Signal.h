@@ -8,6 +8,7 @@
 #define SIGNAL_H
 
 #include <vector>
+#include <string>
 using namespace std;
 
 class Signal
